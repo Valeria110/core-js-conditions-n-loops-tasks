@@ -113,6 +113,27 @@ function isIsoscelesTriangle(a, b, c) {
  *  26  => XXVI
  */
 function convertToRomanNumerals(/* num */) {
+  // const romanNumerals = [
+  //   '',
+  //   'I',
+  //   'II',
+  //   'III',
+  //   'IV',
+  //   'V',
+  //   'VI',
+  //   'VII',
+  //   'VIII',
+  //   'IX',
+  //   'X',
+  // ];
+  // let romanNum = '';
+  // if (num < 10) {
+  //   romanNum = romanNumerals[num];
+  // } else {
+  //   const tens = Number(String(num)[0]);
+  //   const ones = Number(String(num)[1]);
+  //   romanNum = romanNum + romanNumerals[10].repeat(tens) + romanNumerals[ones];
+  // }
   throw new Error('Not implemented');
 }
 
@@ -147,8 +168,13 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let reversedStr = '';
+  for (let i = 0; i < str.length; i += 1) {
+    reversedStr = str[i] + reversedStr;
+  }
+
+  return str === reversedStr;
 }
 
 /**

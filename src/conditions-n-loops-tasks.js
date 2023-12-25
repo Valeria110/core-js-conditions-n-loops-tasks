@@ -66,8 +66,49 @@ function getMaxNumber(a, b, c) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  if (queen.x === king.x || queen.y === king.y) {
+    return true;
+  }
+
+  // Ищем совпадения по диагонали
+  let { y } = queen;
+  for (let i = queen.x; i <= 8; i += 1) {
+    if (i === king.x && y === king.y) {
+      return true;
+    }
+
+    y += 1;
+  }
+
+  y = queen.y;
+  for (let i = queen.x; i <= 8; i += 1) {
+    if (i === king.x && y === king.y) {
+      return true;
+    }
+
+    y -= 1;
+  }
+
+  y = queen.y;
+  for (let i = queen.x; i >= 0; i -= 1) {
+    if (i === king.x && y === king.y) {
+      return true;
+    }
+
+    y += 1;
+  }
+
+  y = queen.y;
+  for (let i = queen.x; i >= 0; i -= 1) {
+    if (i === king.x && y === king.y) {
+      return true;
+    }
+
+    y -= 1;
+  }
+
+  return false;
 }
 
 /**

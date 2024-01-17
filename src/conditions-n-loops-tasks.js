@@ -71,7 +71,6 @@ function canQueenCaptureKing(queen, king) {
     return true;
   }
 
-  // Ищем совпадения по диагонали
   let { y } = queen;
   for (let i = queen.x; i <= 8; i += 1) {
     if (i === king.x && y === king.y) {
@@ -393,8 +392,28 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const rotatedMatrix = matrix;
+  const arr = [];
+
+  for (let i = 0; i < matrix.length; i += 1) {
+    arr[i] = [];
+    arr[i].length = matrix.length;
+    for (let j = 0; j < matrix.length; j += 1) {
+      arr[i][j] = matrix[i][j];
+    }
+  }
+
+  for (let i = 0; i < matrix[0].length; i += 1) {
+    let countRow = matrix.length - 1;
+
+    for (let j = 0; j < matrix.length; j += 1) {
+      rotatedMatrix[i][j] = arr[countRow][i];
+      countRow -= 1;
+    }
+  }
+
+  return rotatedMatrix;
 }
 
 /**
@@ -411,9 +430,57 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  if (arr.length < 2) {
+    return arr;
+  }
+
+  const sortedArr = arr;
+  const pivot = arr[0];
+  let left = [];
+  let right = [];
+  let leftIndex = 0;
+  let rigthIndex = 0;
+
+  for (let i = 1; i < arr.length; i += 1) {
+    if (arr[i] < pivot) {
+      left[leftIndex] = arr[i];
+      leftIndex += 1;
+    } else {
+      right[rigthIndex] = arr[i];
+      rigthIndex += 1;
+    }
+  }
+
+  left = sortByAsc(left);
+  right = sortByAsc(right);
+
+  for (let i = 0; i < left.length; i += 1) {
+    sortedArr[i] = left[i];
+  }
+
+  sortedArr[left.length] = pivot;
+
+  for (let i = 0; i < right.length; i += 1) {
+    sortedArr[leftIndex + 1 + i] = right[i];
+  }
+
+  return sortedArr;
 }
+// Bubble sort:
+
+// const sortedArr = arr;
+// for (let i = 0; i < sortedArr.length - 1; i += 1) {
+//   for (let j = 0; j < sortedArr.length - 1 - i; j += 1) {
+//     if (sortedArr[j + 1] < sortedArr[j]) {
+//       const less = sortedArr[j + 1];
+//       sortedArr[j + 1] = sortedArr[j];
+//       sortedArr[j] = less;
+//     }
+//   }
+// }
+
+// return sortedArr;
 
 /**
  * Shuffles characters in a string so that the characters with an odd index are moved to the end of the string at each iteration.
@@ -432,8 +499,25 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let shuffledStr = str;
+
+  for (let i = 1; i <= iterations; i += 1) {
+    let evenChars = '';
+    let oddChars = '';
+
+    for (let j = 0; j < shuffledStr.length; j += 1) {
+      if (j % 2 !== 0) {
+        oddChars += shuffledStr[j];
+      } else {
+        evenChars += shuffledStr[j];
+      }
+    }
+    shuffledStr = evenChars + oddChars;
+    if (shuffledStr === str) return shuffleChar(str, iterations % i);
+  }
+
+  return shuffledStr;
 }
 
 /**
